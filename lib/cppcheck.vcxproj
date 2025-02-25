@@ -39,6 +39,7 @@
     <ClCompile Include="checkbufferoverrun.cpp" />
     <ClCompile Include="checkclass.cpp" />
     <ClCompile Include="checkcondition.cpp" />
+    <ClCompile Include="checkdlubal.cpp" />
     <ClCompile Include="checkers.cpp" />
     <ClCompile Include="checkersidmapping.cpp" />
     <ClCompile Include="checkersreport.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="checkbufferoverrun.h" />
     <ClInclude Include="checkclass.h" />
     <ClInclude Include="checkcondition.h" />
+    <ClInclude Include="checkdlubal.h" />
     <ClInclude Include="checkers.h" />
     <ClInclude Include="checkersidmapping.h" />
     <ClInclude Include="checkersreport.h" />

@@ -47,6 +47,7 @@ LIBOBJ =      $(libcppdir)/valueflow.o \
               $(libcppdir)/checkbufferoverrun.o \
               $(libcppdir)/checkclass.o \
               $(libcppdir)/checkcondition.o \
+              $(libcppdir)/checkdlubal.o \
               $(libcppdir)/checkers.o \
               $(libcppdir)/checkersidmapping.o \
               $(libcppdir)/checkersreport.o \
@@ -185,6 +186,9 @@ $(libcppdir)/checkclass.o: ../lib/checkclass.cpp ../externals/tinyxml2/tinyxml2.
 
 $(libcppdir)/checkcondition.o: ../lib/checkcondition.cpp ../lib/addoninfo.h ../lib/astutils.h ../lib/check.h ../lib/checkcondition.h ../lib/checkers.h ../lib/checkother.h ../lib/config.h ../lib/errortypes.h ../lib/library.h ../lib/mathlib.h ../lib/platform.h ../lib/settings.h ../lib/smallvector.h ../lib/sourcelocation.h ../lib/standards.h ../lib/symboldatabase.h ../lib/templatesimplifier.h ../lib/token.h ../lib/tokenize.h ../lib/tokenlist.h ../lib/utils.h ../lib/vfvalue.h
 	$(CXX) ${LIB_FUZZING_ENGINE} $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $(libcppdir)/checkcondition.cpp
+
+$(libcppdir)/checkdlubal.o: ../lib/checkdlubal.cpp ../lib/addoninfo.h ../lib/check.h ../lib/checkdlubal.h ../lib/checkers.h ../lib/color.h ../lib/config.h ../lib/errorlogger.h ../lib/errortypes.h ../lib/library.h ../lib/mathlib.h ../lib/platform.h ../lib/settings.h ../lib/sourcelocation.h ../lib/standards.h ../lib/symboldatabase.h ../lib/templatesimplifier.h ../lib/token.h ../lib/tokenize.h ../lib/tokenlist.h ../lib/utils.h ../lib/vfvalue.h
+	$(CXX) ${LIB_FUZZING_ENGINE} $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $(libcppdir)/checkdlubal.cpp
 
 $(libcppdir)/checkers.o: ../lib/checkers.cpp ../lib/checkers.h ../lib/config.h
 	$(CXX) ${LIB_FUZZING_ENGINE} $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $(libcppdir)/checkers.cpp

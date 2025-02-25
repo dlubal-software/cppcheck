@@ -132,7 +132,7 @@ ifeq (clang++, $(findstring clang++,$(CXX)))
     CPPCHK_GLIBCXX_DEBUG=
 endif
 ifndef CXXFLAGS
-    CXXFLAGS=-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-multichar
+    CXXFLAGS=-pedantic -Wall -Wextra -Wcast-qual -Wfloat-equal -Wmissing-declarations -Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls -Wundef -Wno-sign-compare -Wno-multichar -Woverloaded-virtual $(CPPCHK_GLIBCXX_DEBUG) -g
 endif
 
 ifeq (g++, $(findstring g++,$(CXX)))
@@ -194,6 +194,7 @@ LIBOBJ =      $(libcppdir)/valueflow.o \
               $(libcppdir)/checkbufferoverrun.o \
               $(libcppdir)/checkclass.o \
               $(libcppdir)/checkcondition.o \
+              $(libcppdir)/checkdlubal.o \
               $(libcppdir)/checkers.o \
               $(libcppdir)/checkersidmapping.o \
               $(libcppdir)/checkersreport.o \
@@ -364,7 +365,7 @@ dmake:	tools/dmake/dmake.o cli/filelister.o $(libcppdir)/pathmatch.o $(libcppdir
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 run-dmake: dmake
-	./dmake --release
+	./dmake
 
 clean:
 	rm -f build/*.cpp build/*.o lib/*.o cli/*.o test/*.o tools/dmake/*.o externals/*/*.o testrunner dmake cppcheck cppcheck.exe cppcheck.1
@@ -489,6 +490,9 @@ $(libcppdir)/checkclass.o: lib/checkclass.cpp externals/tinyxml2/tinyxml2.h lib/
 
 $(libcppdir)/checkcondition.o: lib/checkcondition.cpp lib/addoninfo.h lib/astutils.h lib/check.h lib/checkcondition.h lib/checkers.h lib/checkother.h lib/config.h lib/errortypes.h lib/library.h lib/mathlib.h lib/platform.h lib/settings.h lib/smallvector.h lib/sourcelocation.h lib/standards.h lib/symboldatabase.h lib/templatesimplifier.h lib/token.h lib/tokenize.h lib/tokenlist.h lib/utils.h lib/vfvalue.h
 	$(CXX) ${INCLUDE_FOR_LIB} $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $(libcppdir)/checkcondition.cpp
+
+$(libcppdir)/checkdlubal.o: lib/checkdlubal.cpp lib/addoninfo.h lib/check.h lib/checkdlubal.h lib/checkers.h lib/color.h lib/config.h lib/errorlogger.h lib/errortypes.h lib/library.h lib/mathlib.h lib/platform.h lib/settings.h lib/sourcelocation.h lib/standards.h lib/symboldatabase.h lib/templatesimplifier.h lib/token.h lib/tokenize.h lib/tokenlist.h lib/utils.h lib/vfvalue.h
+	$(CXX) ${INCLUDE_FOR_LIB} $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $(libcppdir)/checkdlubal.cpp
 
 $(libcppdir)/checkers.o: lib/checkers.cpp lib/checkers.h lib/config.h
 	$(CXX) ${INCLUDE_FOR_LIB} $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $(libcppdir)/checkers.cpp
