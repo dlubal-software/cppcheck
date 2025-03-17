@@ -1,0 +1,38 @@
+name: Windows build
+
+on:
+  push:
+    branches:
+      - dlubal
+  workflow_dispatch:
+
+env:
+  BUILD_TYPE: Release
+  BUILD_DIR: ${{github.workspace}}/build/bin/Release
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Remove unnecessary files
+      run: |
+        rm -R -Force ${{env.BUILD_DIR}}/addons
+        del ${{env.BUILD_DIR}}/*.pdb
+        del ${{env.BUILD_DIR}}/dmake.*
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-win64
+        path: ${{env.BUILD_DIR}}
+
+
